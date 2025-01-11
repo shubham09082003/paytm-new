@@ -5,7 +5,7 @@ import { Center } from "@repo/ui/center";
 import { TextInput } from "@repo/ui/textinput";
 import { useState } from "react";
 import { p2pTransfer } from "../app/lib/actions/p2pTransfer";
-
+import { createOnRampTransactionforP2p } from "../app/lib/actions/createOnrampTransactionsforP2p";
 export function SendCard() {
     const [number, setNumber] = useState("");
     const [amount, setAmount] = useState("");
@@ -22,7 +22,8 @@ export function SendCard() {
                     }} />
                     <div className="pt-4 flex justify-center">
                         <Button onClick={async () => {
-                            await p2pTransfer(number, Number(amount) * 100)
+                            const ans = await p2pTransfer( number, Number(amount) * 100);
+                            await createOnRampTransactionforP2p(number,Number(amount),ans)
                         }}>Send</Button>
                     </div>
                 </div>

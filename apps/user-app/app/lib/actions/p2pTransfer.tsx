@@ -16,13 +16,15 @@ export async function p2pTransfer(to: string, amount: number) {
             number: to
         }
     });
+    console.log(toUser);
+
 
     if (!toUser) {
         return {
             message: "User not found"
         }
     }
-    await prisma.$transaction(async (tx) => {
+    const response = await prisma.$transaction(async (tx) => {
         const fromBalance = await tx.balance.findUnique({
             where: { userId: Number(from) },
           });
@@ -39,5 +41,9 @@ export async function p2pTransfer(to: string, amount: number) {
             where: { userId: toUser.id },
             data: { amount: { increment: amount } },
           });
+
+          return 'Success';
     });
+    
+    return response
 }

@@ -7,8 +7,13 @@ export default {
     "../../packages/ui/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        greenCustom: '#40C057',
+      },
+    },
   },
   plugins: [],
+  
 }
 
